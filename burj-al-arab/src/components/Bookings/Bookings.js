@@ -6,10 +6,17 @@ const Bookings = () => {
 
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/bookings?email=" + loggedInUser.email)
+    const newLocal = "token";
+    fetch("http://localhost:5000/bookings?email=" + loggedInUser.email, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem(newLocal)}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setBookings(data));
-  });
+  }, []);
   return (
     <div>
       <h3>You have {bookings.length} bookings: </h3>
