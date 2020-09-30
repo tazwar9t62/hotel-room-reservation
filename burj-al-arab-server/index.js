@@ -12,7 +12,7 @@ const serviceAccount = require("./configs/burj-al-arab-10bae-firebase-adminsdk-y
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://burj-al-arab-10bae.firebaseio.com",
+  databaseURL: process.env.FIREBASS_DB,
 });
 
 const MongoClient = require("mongodb").MongoClient;
@@ -63,10 +63,6 @@ client.connect((err) => {
       res.status(401).send("un-authorized acess!!");
     }
   });
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello Tazwar!");
 });
 
 app.listen(port);
